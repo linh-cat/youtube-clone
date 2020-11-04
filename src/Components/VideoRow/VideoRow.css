@@ -1,0 +1,21 @@
+.videoRow {
+  display: flex;
+  margin-bottom: 30px;
+  max-width: 900px;
+}
+.videoRow > img {
+  object-fit: contain;
+  height: 200px;
+}
+.videoRow__text {
+  margin-top: -20px;
+  margin-left: 10px;
+}
+.videoRow__text > p {
+  color: gray;
+  font-size: 14px;
+}
+.videoRow__textInfor {
+  margin-top: -19px;
+  margin-bottom: 20px;
+}

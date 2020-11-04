@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+}
+.header__logo {
+  height: 25px;
+  object-fit: contain;
+  margin-left: 20px;
+}
+.header__input {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  border: 1px solid gray;
+}
+.header__input > input {
+  flex: 1;
+  border: none;
+  height: 90%;
+}
+
+.header__inputButton {
+  width: 50px !important;
+  background: lightgray;
+  color: gray;
+}
+.header__icons {
+  margin-right: 10px;
+}
