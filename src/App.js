@@ -12,7 +12,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/search/:searchTerm">
+          <Route path="/search/:searchQuery">
             <div className="App__page">
               <Sidebar />
               <SearchPage />
