@@ -1,7 +1,8 @@
 .sidebarRow {
   display: flex;
   align-items: center;
-  padding: 5px 20px 5px 20px;
+  justify-content: center;
+  padding: 5px 20px;
 }
 .sidebarRow:hover {
   background-color: gray;
@@ -12,6 +13,7 @@
 }
 .sidebarRow:hover > .sidebarRow__title {
   font-weight: bold;
+  color: red;
 }
 
 .sidebarRow__title {
@@ -19,6 +21,7 @@
   margin-left: 20px;
   font-size: 15px;
   font-weight: 500;
+  color: white;
 }
 .sidebarRow__icon {
   color: #606060;

@@ -3,6 +3,7 @@
   justify-content: space-between;
   padding: 15px;
   position: sticky;
+  background-color: #202020;
   top: 0;
 }
 .header__logo {
@@ -24,9 +25,12 @@
 
 .header__inputButton {
   width: 50px !important;
-  background: lightgray;
-  color: gray;
+  background: #323232;
+  color: white;
 }
 .header__icons {
   margin-right: 10px;
+}
+.MuiSvgIcon-root {
+  color: white;
 }

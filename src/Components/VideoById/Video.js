@@ -10,7 +10,7 @@ function Video() {
       <ReactPlayer
         url={`https://youtu.be/${videoId}`}
         controls
-        playbackRate={2}
+        playbackRate={1}
         width="896px"
         height="504px"
       />
