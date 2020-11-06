@@ -5,14 +5,9 @@ import VideoCard from "../VideoCard/VideoCard";
 import "./RecommendVideo.css";
 
 function RecomendVideo() {
-  const API_KEY = "AIzaSyCxcVw8a5uDuiSvH7PA2Zr6ypmkTBZUX4w";
+  const API_KEY = "AIzaSyAYdOYFZ1LfPTTB9bBitCviGR4TU-DeX5s";
 
   const [videos, setVideos] = useState([]);
-  const [id, setId] = useState("");
-
-  function handleClick(id) {
-    setId(id);
-  }
 
   useEffect(() => {
     async function fetchData() {
@@ -20,7 +15,7 @@ function RecomendVideo() {
         `/search?part=snippet&maxResults=20&q=java&key=${API_KEY}`
       );
 
-      console.log(request.data.items[5]);
+      // console.log(request.data.items[5]);
       setVideos(request.data.items);
       return request;
     }
@@ -33,7 +28,7 @@ function RecomendVideo() {
 
       <div className="recommendVideos__videos">
         {videos.map((video) => (
-          <Link to={`/video/${id}`}>
+          <Link to={`/video/${video.id.videoId}`}>
             <VideoCard
               key={video.id.videoId && video.id.playlistId}
               title={video.snippet.title}
@@ -42,7 +37,6 @@ function RecomendVideo() {
               channel={video.snippet.channelTitle}
               channelImage={video.snippet.thumbnails.medium.url}
               image={video.snippet.thumbnails.high.url}
-              handleClick={() => handleClick(video.id.videoId)}
             />
           </Link>
         ))}
