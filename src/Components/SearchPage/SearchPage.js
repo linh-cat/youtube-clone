@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import VideoRow from "../VideoRow/VideoRow";
 import TuneIcon from "@material-ui/icons/Tune";
 import "./SearchPage.css";
-import Axios from "axios";
+import axios from "../../FetchAPI/axios";
 
 function SearchPage() {
   const [videos, setVideos] = useState([]);
@@ -11,14 +11,13 @@ function SearchPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const url = "https://www.googleapis.com/youtube/v3";
-      const API_KEY = "AIzaSyAYdOYFZ1LfPTTB9bBitCviGR4TU-DeX5s";
+      const API_KEY = "AIzaSyCxcVw8a5uDuiSvH7PA2Zr6ypmkTBZUX4w";
 
-      const request = await Axios(
-        `${url}/search?part=snippet&maxResults=25&q=${params.searchQuery}&key=${API_KEY}`
+      const request = await axios(
+        `/search?part=snippet&maxResults=20&q=${params.searchQuery}&key=${API_KEY}`
       );
       setVideos(request.data.items);
-      console.log(request.data.items[0].id);
+      // console.log(request.data.items[0].id);
       return request;
     }
     fetchData();

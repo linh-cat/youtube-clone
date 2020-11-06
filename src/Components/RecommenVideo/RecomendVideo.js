@@ -1,18 +1,25 @@
-import React, { useState, useEffect } from "react";
-import VideoCard from "../VideoCard/VideoCard";
-import "./RecommendVideo.css";
-import requests from "../../FetchAPI/requests";
-
+import React, { useEffect, useState } from "react";
 import axios from "../../FetchAPI/axios";
 
+import VideoCard from "../VideoCard/VideoCard";
+import "./RecommendVideo.css";
+
 function RecomendVideo() {
+  const API_KEY = "AIzaSyCxcVw8a5uDuiSvH7PA2Zr6ypmkTBZUX4w";
+
   const [videos, setVideos] = useState([]);
+
+  function handleClick(id) {
+    console.log(id);
+  }
 
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(requests.fetchingAllVideoById);
+      const request = await axios.get(
+        `/search?part=snippet&maxResults=20&q=java&key=${API_KEY}`
+      );
 
-      console.log(request.data.items[0].id);
+      // console.log(request.data.items[0].id);
       setVideos(request.data.items);
 
       return request;
@@ -34,6 +41,7 @@ function RecomendVideo() {
             channel={video.snippet.channelTitle}
             channelImage={video.snippet.thumbnails.medium.url}
             image={video.snippet.thumbnails.high.url}
+            handleClick={() => handleClick(video.id.videoId)}
           />
         ))}
       </div>
