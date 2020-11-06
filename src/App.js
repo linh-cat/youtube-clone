@@ -5,6 +5,7 @@ import Sidebar from "./Components/Sidebar/Sidebar";
 import RecommendVideo from "./Components/RecommenVideo/RecomendVideo";
 import SearchPage from "./Components/SearchPage/SearchPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Video from "./Components/VideoById/Video";
 function App() {
   return (
     <div className="App">
@@ -15,6 +16,12 @@ function App() {
             <div className="App__page">
               <Sidebar />
               <SearchPage />
+            </div>
+          </Route>
+          <Route path="/video/:videoId">
+            <div className="App__page">
+              <Sidebar />
+              <Video />
             </div>
           </Route>
           <Route path="/">
