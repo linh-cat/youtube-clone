@@ -5,6 +5,7 @@
   position: sticky;
   background-color: #202020;
   top: 0;
+  z-index: 1;
 }
 .header__logo {
   height: 25px;
@@ -14,20 +15,30 @@
 .header__input {
   display: flex;
   align-items: center;
-  width: 40%;
-  border: 1px solid gray;
+  width: 35%;
+  height: 27px !important;
 }
 .header__input > input {
   flex: 1;
   border: none;
-  height: 90%;
+  height: 100%;
+  background-color: #202020;
+  padding: 0px 10px;
+  color: white;
+  border: 1px solid gray;
+}
+.header__input > input:hover {
+  border-bottom-left-radius: 1px solid white;
 }
 
 .header__inputButton {
-  width: 50px !important;
+  width: 70px !important;
+  height: 30px !important;
+  margin-top: 4px;
+
   background: #323232;
-  color: white;
 }
+
 .header__icons {
   margin-right: 10px;
 }

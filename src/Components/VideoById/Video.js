@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import "./Video.css";
 function Video() {
   const { videoId } = useParams();
+
   return (
     <div className="Video">
       <ReactPlayer

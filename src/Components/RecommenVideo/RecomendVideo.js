@@ -12,11 +12,11 @@ function RecomendVideo() {
   useEffect(() => {
     async function fetchData() {
       const request = await axios.get(
-        `/search?part=snippet&maxResults=20&q=java&key=${API_KEY}`
+        `/search?part=snippet&maxResults=50&q=front%20end&key=${API_KEY}`
       );
 
-      // console.log(request.data.items[5]);
       setVideos(request.data.items);
+      console.log(request.data.items);
       return request;
     }
     fetchData();
@@ -32,8 +32,8 @@ function RecomendVideo() {
             <VideoCard
               key={video.id.videoId && video.id.playlistId}
               title={video.snippet.title}
-              views="2.3M Views"
-              timestamp="3 days ago"
+              views="?"
+              timestamp={video.snippet.publishedAt}
               channel={video.snippet.channelTitle}
               channelImage={video.snippet.thumbnails.medium.url}
               image={video.snippet.thumbnails.high.url}
