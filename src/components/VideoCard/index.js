@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Avatar } from "@material-ui/core";
 
 function Index({ image, title, channel, views, timestamp, channelImage }) {
-  console.log(image);
   return (
     <Container>
       <ThumbnailImage src={image} alt="image video" />
