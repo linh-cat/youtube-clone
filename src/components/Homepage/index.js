@@ -14,7 +14,7 @@ function Index() {
           url: "/video/list",
           method: "GET",
           params: {
-            max_results: 12,
+            max_results: 5,
           },
         });
         setVideos(data.data.items);
