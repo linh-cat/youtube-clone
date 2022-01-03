@@ -1,38 +1,30 @@
-import React from "react";
-import "./App.css";
-import Header from "./Components/Header/Header";
-import Sidebar from "./Components/Sidebar/Sidebar";
-import RecommendVideo from "./Components/RecommenVideo/RecomendVideo";
-import SearchPage from "./Components/SearchPage/SearchPage";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Video from "./Components/VideoById/Video";
+import React, { Suspense, useEffect, useState } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+import appRoutes from "./routes";
+
 function App() {
+  function showLayout(routes) {
+    if (routes && routes.length > 0) {
+      return routes.map((item, idx) => (
+        <Route
+          key={idx}
+          exact={item.exact}
+          path={item.path}
+          render={(props) => <item.component {...props} routes={item.routes} />}
+        />
+      ));
+    }
+  }
+
   return (
-    <div className="App">
-      <Router>
-        <Header />
-        <Switch>
-          <Route path="/search/:searchQuery">
-            <div className="App__page">
-              <Sidebar />
-              <SearchPage />
-            </div>
-          </Route>
-          <Route path="/video/:videoId">
-            <div className="App__page">
-              <Sidebar />
-              <Video />
-            </div>
-          </Route>
-          <Route path="/">
-            <div className="App__page">
-              <Sidebar />
-              <RecommendVideo />
-            </div>
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+    <BrowserRouter>
+      <div className="app">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>{showLayout(appRoutes)}</Switch>
+        </Suspense>
+      </div>
+    </BrowserRouter>
   );
 }
 
