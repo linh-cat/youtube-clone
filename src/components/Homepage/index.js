@@ -14,7 +14,7 @@ function Index() {
           url: "/video/list",
           method: "GET",
           params: {
-            max_results: 5,
+            max_results: 12,
           },
         });
         setVideos(data.data.items);
@@ -27,7 +27,7 @@ function Index() {
 
   return (
     <Container>
-      {videos.map((video, idx) => (
+      {videos?.map((video, idx) => (
         <VideoCard
           key={idx}
           title={video.snippet.title}
