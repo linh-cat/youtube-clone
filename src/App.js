@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Loading from "./components/Loading";
 
 import appRoutes from "./routes";
 
@@ -20,7 +21,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Switch>{showLayout(appRoutes)}</Switch>
         </Suspense>
       </div>

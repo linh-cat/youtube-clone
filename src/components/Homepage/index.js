@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "../../service/axios";
 
+import Loading from "../Loading";
 import VideoCard from "../VideoCard";
 
 function Index() {
   const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
+        setLoading(true);
         const data = await axios({
           url: "/video/list",
           method: "GET",
@@ -18,15 +21,20 @@ function Index() {
           },
         });
         setVideos(data.data.items);
+        setLoading(false);
       } catch (e) {
+        setLoading(false);
         console.log(e);
       }
     }
     fetchData();
   }, []);
 
+  console.log(videos);
+
   return (
     <Container>
+      {loading === true && <Loading />}
       {videos?.map((video, idx) => (
         <VideoCard
           key={idx}
@@ -34,7 +42,7 @@ function Index() {
           views="?"
           timestamp={video.snippet.publishedAt}
           channel={video.snippet.channelTitle}
-          channelImage={video.snippet.thumbnails.medium.url}
+          channelId={video.snippet.channelId}
           image={video.snippet.thumbnails.high.url}
         />
       ))}

@@ -25,9 +25,9 @@ function Index() {
           value={inputSearch}
           onChange={(e) => setInputSearch(e.target.value)}
         />
-        <Link to={`/search/${inputSearch}`}>
-          <SearchIcon className="header__inputButton" />
-        </Link>
+        <ButtonSearch to={`/search/${inputSearch}`}>
+          <SearchIcon />
+        </ButtonSearch>
       </HeaderInput>
       <div className="header__icons">
         <Avatar src="" alt="avatar" />
@@ -83,9 +83,11 @@ const HeaderInput = styled.div`
       font-size: 16px;
     }
   }
-  .header__inputButton {
-    background: #323232;
-    width: 70px;
-    height: 32px;
-  }
+`;
+
+const ButtonSearch = styled.button`
+  background: #323232;
+  border: none;
+  width: 50px;
+  height: 100%;
 `;

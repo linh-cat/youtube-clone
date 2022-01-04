@@ -1,20 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "../../service/axios";
+
 import { Avatar } from "@material-ui/core";
 
-function Index({ image, title, channel, views, timestamp, channelImage }) {
+function Index({ image, title, channel, views, timestamp, channelId }) {
+  const [imageChannel, setImageChannel] = useState({});
+  async function fetchChannelById() {
+    try {
+      const data = await axios({
+        url: `/channel/${channelId}`,
+        method: "GET",
+      });
+      setImageChannel(data.data.items[0].snippet.thumbnails.default.url);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    fetchChannelById();
+  }, []);
+
   return (
     <Container>
       <ThumbnailImage src={image} alt="image video" />
       <Infor>
-        <Avatar className="infor__avatar" alt="" src={channelImage} />
-        <div className="videoCard__text">
+        <Avatar alt="channelImage" src={imageChannel} />
+        <VideoCardText>
           <Title>{title}</Title>
           <Channel>{channel}</Channel>
           <TimestampAndView>
             {views} + {timestamp}
           </TimestampAndView>
-        </div>
+        </VideoCardText>
       </Infor>
     </Container>
   );
@@ -27,6 +46,7 @@ const Container = styled.div`
   height: 300px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 `;
 
 const ThumbnailImage = styled.img`
@@ -57,3 +77,4 @@ const Channel = styled.p`
 const TimestampAndView = styled.p`
   color: #aaaaaa;
 `;
+const VideoCardText = styled.div``;
