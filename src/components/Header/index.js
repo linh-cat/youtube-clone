@@ -8,13 +8,13 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/images/logo.png";
 import Avatar from "@material-ui/core/Avatar";
 
-function Index() {
+function Index({ navbar, setNavbar }) {
   const [inputSearch, setInputSearch] = useState("");
 
   return (
     <Container>
       <HeaderLeft className="header__left">
-        <MenuIcon />
+        <MenuIcon onClick={() => setNavbar(!navbar)} className="menu" />
         <Link to="/">
           <LogoIcon src={Logo} alt="logo youtube" />
         </Link>
@@ -29,9 +29,9 @@ function Index() {
           <SearchIcon />
         </ButtonSearch>
       </HeaderInput>
-      <div className="header__icons">
+      <IconGroup>
         <Avatar src="" alt="avatar" />
-      </div>
+      </IconGroup>
     </Container>
   );
 }
@@ -55,6 +55,9 @@ const Container = styled.div`
 const HeaderLeft = styled.div`
   display: flex;
   column-gap: 10px;
+  .menu {
+    cursor: pointer;
+  }
 `;
 const LogoIcon = styled.img`
   width: 100px;
@@ -91,3 +94,5 @@ const ButtonSearch = styled.button`
   width: 50px;
   height: 100%;
 `;
+
+const IconGroup = styled.div``;

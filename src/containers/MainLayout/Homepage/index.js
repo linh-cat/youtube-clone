@@ -1,13 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import axios from "../../service/axios";
 
-import Loading from "../Loading";
-import VideoCard from "../VideoCard";
+import axios from "../../../service/axios";
+
+import Loading from "../../../components/Loading";
+import VideoCard from "../../../components/VideoCard";
 
 function Index() {
   const [videos, setVideos] = useState([]);
+  const [maxResults, setMaxResults] = useState(12);
   const [loading, setLoading] = useState(false);
+  const listInnerRef = useRef();
+
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      // console.log(scrollTop, clientHeight, scrollHeight);
+
+      if (scrollTop + clientHeight === scrollHeight) {
+        setMaxResults(maxResults + 8);
+      }
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -17,7 +31,7 @@ function Index() {
           url: "/video/list",
           method: "GET",
           params: {
-            max_results: 12,
+            max_results: maxResults,
           },
         });
         setVideos(data.data.items);
@@ -28,12 +42,10 @@ function Index() {
       }
     }
     fetchData();
-  }, []);
-
-  console.log(videos);
+  }, [maxResults]);
 
   return (
-    <Container>
+    <Container onScroll={onScroll} ref={listInnerRef}>
       {loading === true && <Loading />}
       {videos?.map((video, idx) => (
         <VideoCard
@@ -44,6 +56,7 @@ function Index() {
           channel={video.snippet.channelTitle}
           channelId={video.snippet.channelId}
           image={video.snippet.thumbnails.high.url}
+          videoId={video.id}
         />
       ))}
     </Container>
@@ -53,15 +66,14 @@ function Index() {
 export default Index;
 
 const Container = styled.div`
-  flex: 1;
-
-  padding: 10px 100px;
+  padding: 20px 100px;
 
   display: grid;
-  grid-template-columns: repeat(4, 320px);
+  grid-template-columns: repeat(5, 320px);
   row-gap: 10px;
   column-gap: 20px;
 
   height: calc(100vh - 70px);
   overflow-y: scroll !important;
+  overflow-x: hidden;
 `;

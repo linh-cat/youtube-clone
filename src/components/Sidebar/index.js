@@ -14,9 +14,10 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExploreIcon from "@material-ui/icons/Explore";
 
-function Index() {
+function Index({ navbar }) {
+  console.log(navbar);
   return (
-    <Container>
+    <Container HiddenBar={navbar}>
       <SidebarRow Icon={HomeIcon} title="Home" />
       <SidebarRow Icon={ExploreIcon} title="Explore" />
       <SidebarRow Icon={SubscriptionsIcon} title="Subcription" />
@@ -38,4 +39,12 @@ const Container = styled.div`
   background-color: #202020;
   height: calc(100vh - 70px);
   width: 300px;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  z-index: 1;
+
+  transform: ${(props) =>
+    props.HiddenBar === true ? "translateX(-100%)" : "translateX(0%)"};
+  transition: transform 0.5s linear;
 `;

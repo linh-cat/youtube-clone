@@ -1,26 +1,39 @@
-import React from "react";
+import React, { useState, Suspense } from "react";
+import { Route, Switch } from "react-router";
+
 import styled from "styled-components";
 
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import Homepage from "../../components/Homepage";
+import Loading from "../../components/Loading";
 
-function index() {
+function Index({ routes }) {
+  const [navbar, setNavbar] = useState(true);
+
   return (
     <Container>
-      <Header />
+      <Header setNavbar={setNavbar} navbar={navbar} />
+      <Sidebar navbar={navbar} />
       <MainLayout>
-        <Sidebar />
-        <Homepage />
+        <Suspense fallback={<Loading />}>
+          <Switch>
+            {routes.map((item, idx) => (
+              <Route
+                key={idx}
+                exact={item.exact}
+                path={item.path}
+                component={item.component}
+              />
+            ))}
+          </Switch>
+        </Suspense>
       </MainLayout>
     </Container>
   );
 }
 
-export default index;
+export default Index;
 
 const Container = styled.div``;
 
-const MainLayout = styled.div`
-  display: flex;
-`;
+const MainLayout = styled.div``;

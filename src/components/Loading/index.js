@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-// import "./index.css";
 
 function index() {
   return (
@@ -14,9 +13,8 @@ export default index;
 
 const Container = styled.div`
   position: absolute;
-  left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  left: 50%;
 `;
 
 const Spin = keyframes`

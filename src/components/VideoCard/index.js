@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+
 import axios from "../../service/axios";
 
 import { Avatar } from "@material-ui/core";
 
-function Index({ image, title, channel, views, timestamp, channelId }) {
+function Index({
+  image,
+  title,
+  channel,
+  views,
+  timestamp,
+  channelId,
+  videoId,
+}) {
+  let history = useHistory();
+
   const [imageChannel, setImageChannel] = useState({});
   async function fetchChannelById() {
     try {
@@ -23,7 +35,7 @@ function Index({ image, title, channel, views, timestamp, channelId }) {
   }, []);
 
   return (
-    <Container>
+    <Container onClick={() => history.push(`/watch/v/${videoId}`)}>
       <ThumbnailImage src={image} alt="image video" />
       <Infor>
         <Avatar alt="channelImage" src={imageChannel} />
