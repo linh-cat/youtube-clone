@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
 
 import useWindowDimensions from "../../../hook/useWindowDimensions";
@@ -9,11 +8,9 @@ import VideoInfor from "../../../components/VideoInfor";
 import RecommendVideo from "../../../components/RecommendVideo";
 
 function Index() {
-  const { height, width } = useWindowDimensions();
-
   const { videoId } = useParams();
 
-  console.log(width, height);
+  const { height, width } = useWindowDimensions();
 
   return (
     <Container width={width} height={height}>
@@ -30,4 +27,6 @@ const Container = styled.div`
   height: calc(${(props) => props.height}px);
 
   display: flex;
+  background-color: #181818;
+  padding: 15px 20px;
 `;
