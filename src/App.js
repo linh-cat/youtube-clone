@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Loading from "./components/Loading";
 
 import appRoutes from "./routes";
@@ -20,11 +21,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="app">
+      <ErrorBoundary>
         <Suspense fallback={<Loading />}>
           <Switch>{showLayout(appRoutes)}</Switch>
         </Suspense>
-      </div>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 }
