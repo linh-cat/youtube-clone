@@ -17,7 +17,7 @@ const appRoutes = [
       },
       {
         exact: true,
-        path: "/watch/v/:videoId",
+        path: "/watch/v/:videoId/:channelId",
         component: React.lazy(() =>
           import("../containers/MainLayout/PlayVideo")
         ),

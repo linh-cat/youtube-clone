@@ -11,22 +11,27 @@ import ThumbDownAltOutlinedIcon from "@material-ui/icons/ThumbDownAltOutlined";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import SaveAltOutlinedIcon from "@material-ui/icons/SaveAltOutlined";
 
-function Index({ videoId, windowWidth, windowHeight }) {
+function Index({ videoId, windowWidth, windowHeight, channelId }) {
   const [videoInfor, setVideoInfor] = useState({});
   const [videoCount, setVideoCount] = useState({});
+  const [channelInfor, setChannelInfor] = useState({});
+  const [channelCount, setChannelCount] = useState({});
 
   async function fetchVideoDetail() {
     try {
       const data = await axios({
-        url: `/video/detailById/${videoId}`,
+        url: `/video/detailById/${videoId}/${channelId}`,
         method: "GET",
         params: {
           snippet: "snippet",
           statistics: "statistics",
         },
       });
-      setVideoInfor(data.data[0].snippet);
-      setVideoCount(data.data[0].statistics);
+      setVideoInfor(data.data.videoData[0].snippet);
+      setVideoCount(data.data.videoData[0].statistics);
+
+      setChannelInfor(data.data.channelData[0].snippet);
+      setChannelCount(data.data.channelData[0].statistics);
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +42,10 @@ function Index({ videoId, windowWidth, windowHeight }) {
   }, []);
 
   const date_publish = new Date(videoInfor.publishedAt);
-  console.log(videoInfor);
+
+  function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
 
   return (
     <Container>
@@ -49,7 +57,7 @@ function Index({ videoId, windowWidth, windowHeight }) {
         height="70%"
         playing="true"
       />
-
+      {/* video */}
       <ContainerInfor>
         <HashtagList>
           <HashtagItem>#456</HashtagItem>
@@ -59,7 +67,8 @@ function Index({ videoId, windowWidth, windowHeight }) {
 
         <InforBottom>
           <ViewAndTime>
-            {videoCount.viewCount} views - {date_publish.toDateString()}
+            {formatNumber(Number(videoCount.viewCount))} views -{" "}
+            {date_publish.toDateString()}
           </ViewAndTime>
           <ActionVideo>
             <ActionItem>
@@ -81,10 +90,17 @@ function Index({ videoId, windowWidth, windowHeight }) {
           </ActionVideo>
         </InforBottom>
       </ContainerInfor>
+
+      {/* channel */}
       <ChannelInfor>
         <Channel>
           <Avatar alt="Remy Sharp" src="" />
-          <ChannelContent>hihi</ChannelContent>
+          <ChannelContent>
+            <ChannelTitle>{channelInfor.title}</ChannelTitle>
+            <SubscribeCount>
+              {formatNumber(Number(channelCount.subscriberCount))} Subscribers
+            </SubscribeCount>
+          </ChannelContent>
         </Channel>
         <BtnSubscribe>Subscribe</BtnSubscribe>
       </ChannelInfor>
@@ -135,7 +151,33 @@ const ActionItem = styled.div`
   cursor: pointer;
 `;
 const Text = styled.div``;
-const ChannelInfor = styled.div``;
-const Channel = styled.div``;
-const BtnSubscribe = styled.div``;
+const ChannelInfor = styled.div`
+  padding: 15px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const Channel = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+`;
+const BtnSubscribe = styled.div`
+  background-color: #ce4119;
+  padding: 10px 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+`;
 const ChannelContent = styled.div``;
+const ChannelTitle = styled.div`
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: capitalize;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+`;
+const SubscribeCount = styled.div`
+  font-size: 14px;
+  color: #a5a5a5;
+`;

@@ -44,6 +44,7 @@ function Index() {
     fetchData();
   }, [maxResults]);
 
+  console.log(videos);
   return (
     <Container onScroll={onScroll} ref={listInnerRef}>
       {loading === true && <Loading />}
@@ -51,7 +52,6 @@ function Index() {
         <VideoCard
           key={idx}
           title={video.snippet.title}
-          views="?"
           timestamp={video.snippet.publishedAt}
           channel={video.snippet.channelTitle}
           channelId={video.snippet.channelId}

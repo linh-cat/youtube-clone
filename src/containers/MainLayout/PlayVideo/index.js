@@ -8,13 +8,18 @@ import VideoInfor from "../../../components/VideoInfor";
 import RecommendVideo from "../../../components/RecommendVideo";
 
 function Index() {
-  const { videoId } = useParams();
+  const { videoId, channelId } = useParams();
 
   const { height, width } = useWindowDimensions();
 
   return (
     <Container width={width} height={height}>
-      <VideoInfor videoId={videoId} windowWidth={width} windowHeight={height} />
+      <VideoInfor
+        videoId={videoId}
+        windowWidth={width}
+        windowHeight={height}
+        channelId={channelId}
+      />
       <RecommendVideo />
     </Container>
   );

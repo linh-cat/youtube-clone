@@ -34,8 +34,10 @@ function Index({
     fetchChannelById();
   }, []);
 
+  const publishedAt = new Date(timestamp);
+
   return (
-    <Container onClick={() => history.push(`/watch/v/${videoId}`)}>
+    <Container onClick={() => history.push(`/watch/v/${videoId}/${channelId}`)}>
       <ThumbnailImage src={image} alt="image video" />
       <Infor>
         <Avatar alt="channelImage" src={imageChannel} />
@@ -43,7 +45,7 @@ function Index({
           <Title>{title}</Title>
           <Channel>{channel}</Channel>
           <TimestampAndView>
-            {views} + {timestamp}
+            <Time>{publishedAt.toDateString()}</Time>
           </TimestampAndView>
         </VideoCardText>
       </Infor>
@@ -85,8 +87,12 @@ const Title = styled.h4`
 `;
 const Channel = styled.p`
   color: #aaaaaa;
+  margin-top: 5px;
 `;
-const TimestampAndView = styled.p`
+const TimestampAndView = styled.div`
   color: #aaaaaa;
+  margin-top: 5px;
 `;
 const VideoCardText = styled.div``;
+
+const Time = styled.div``;
